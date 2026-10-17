@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:3000
+
+### Cadastrar filme
+POST {{baseUrl}}/filmes
+Content-Type: application/json
+
+{
+  "titulo": "Cidade de Deus",
+  "ano": 2002,
+  "genero": "Drama",
+  "diretor": "Fernando Meirelles",
+  "nota": 9.2
+}
+
+### Listar todos
+GET {{baseUrl}}/filmes
+
+### Listar com nota minima 9
+GET {{baseUrl}}/filmes?notaMinima=9
+
+### Buscar por id
+GET {{baseUrl}}/filmes/1
+
+### Atualizar parcialmente (só nota)
+PATCH {{baseUrl}}/filmes/1
+Content-Type: application/json
+
+{
+  "nota": 8.5
+}
+
+### Remover
+DELETE {{baseUrl}}/filmes/1
+
+### Forçar o validador (tem que dar 400
+POST {{baseUrl}}/filmes
+Content-Type: application/json
+
+{
+  "titulo": "",
+  "ano": 1700,
+  "genero": "Drama",
+  "diretor": "Alguém",
+  "nota": 15
+}
+
+### Cadastrar sem token (ttem que dar 403
+POST {{baseUrl}}/filmes
+Content-Type: application/json
+
+{
+  "titulo": "Central do Brasil",
+  "ano": 1998,
+  "genero": "Drama",
+  "diretor": "Walter Salles",
+  "nota": 8.9
+}
