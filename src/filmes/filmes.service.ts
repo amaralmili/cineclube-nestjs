@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { INICIO_DA_APLICACAO, NOTA_MAXIMA } from '../common/constants';
 import { IdGeneratorService } from '../common/id-generator.service';
 import { CreateFilmeDto } from './dto/create-filme.dto';
 import { UpdateFilmeDto } from './dto/update-filme.dto';
@@ -8,7 +9,18 @@ import { Filme } from './entities/filme.entity';
 export class FilmesService {
   private filmes: Filme[] = [];
 
-  constructor(private readonly idGenerator: IdGeneratorService) {}
+  constructor(
+    private readonly idGenerator: IdGeneratorService,
+    @Inject(NOTA_MAXIMA) private readonly notaMaxima: number,
+    @Inject(INICIO_DA_APLICACAO) private readonly inicioDaAplicacao: Date,
+  ) {}
+
+validarNota(nota: number): boolean {
+  return nota >= 0 && nota <= this.notaMaxima;
+}
+  getInicioDaAplicacao(): Date {
+    return this.inicioDaAplicacao;
+  }
 
   create(dto: CreateFilmeDto): Filme {
     const filme: Filme = {

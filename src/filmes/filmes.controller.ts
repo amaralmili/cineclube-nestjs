@@ -15,13 +15,15 @@ import {
 import { CreateFilmeDto } from './dto/create-filme.dto';
 import { UpdateFilmeDto } from './dto/update-filme.dto';
 import { FilmesService } from './filmes.service';
+import { CustomPipe } from '../common/custom.pipe';
+
 
 @Controller('filmes')
 export class FilmesController {
   constructor(private readonly filmesService: FilmesService) {}
 
   @Post()
-  create(@Body() dto: CreateFilmeDto) {
+  create(@Body(CustomPipe) dto: CreateFilmeDto) {
     return this.filmesService.create(dto);
   }
 
@@ -36,7 +38,13 @@ export class FilmesController {
 
     return this.filmesService.findByNotaMinima(notaMinima);
   }
-
+  @Get('diagnostico')
+  diagnostico() {
+    return {
+      inicioDaAplicacao: this.filmesService.getInicioDaAplicacao(),
+      notaMaxima: 10,
+    };
+  }
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.filmesService.findOne(id);

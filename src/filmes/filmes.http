@@ -55,3 +55,21 @@ Content-Type: application/json
   "diretor": "Walter Salles",
   "nota": 8.9
 }
+
+### Avaliar um filme
+POST {{baseUrl}}/avaliacoes
+Content-Type: application/json
+Authorization: Bearer meu-token-fixo
+
+{
+  "filmeId": 1,
+  "autor": "Jamili",
+  "nota": 9.5,
+  "comentario": "Fotografia muito boa"
+}
+
+### Avaliações de um filme
+GET {{baseUrl}}/avaliacoes/filme/1
+
+### Média do filme
+GET {{baseUrl}}/avaliacoes/filme/1/media
